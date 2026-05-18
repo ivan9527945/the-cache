@@ -27,9 +27,11 @@
 
 ## 專案哲學(讀任何細節前先讀這個)
 
-這個專案在說:「你的數位足跡能還原出一個扁平的你,而這很可怕。」
+這是一個 **反身性的 art project**,不是一般 SaaS 產品。
+它在說:「你的數位足跡能還原出一個扁平的你,而這很可怕。」
 
 如果作品本身在偷收集資料、塞煽情總結、把答案餵給觀眾——**作品就變成它批判的對象**。
+所以「克制」不是風格偏好,是論證有效性問題。
 
 四個核心元素的共同特徵是 **「克制」**:
 - Ghost 克制深刻(才能扁平)
@@ -63,6 +65,50 @@ Black Mirror 之所以是 Black Mirror,不是因為它戲劇化,是因為它克�
 
 如果 Ghost 的 sweet spot 抓不到,整個專案就不必做。
 所以先驗證最難的部分,再做其他。
+
+## 架構
+
+repo 是 monorepo,但 layout 是刻意的:
+
+```
+/                 ← Ghost core CLI + 測試(root package.json)
+  src/ghost/      ← Anthropic SDK wrapper、prompt builder、失敗模式偵測
+  src/extract/    ← Twitter archive → UserFeatures(瀏覽器 + Node 雙進入點)
+  src/actTwo/     ← 幕二腳本 + renderer-agnostic player engine
+  src/chatStats.ts ← 幕三 → 幕五 純統計過場
+  scripts/        ← tsx CLI:repl / dry-run / standard-test / extract / act-two
+  tests/          ← restraint.test.ts(克制紅線)+ endingRestraint.test.ts
+  fixtures/       ← 標準測試與 dry-run 用的範例資料
+
+/web              ← Next.js 15 + React 19 前端(獨立 package.json)
+  app/            ← App Router: upload / act-two / chat / ending / privacy
+  app/api/chat/   ← 唯一後端 endpoint,純 LLM proxy
+  lib/sessionStore.ts   ← Zustand,不帶 persist middleware(刻意)
+  lib/useAutoCleanup.ts ← idle 5 分鐘 + beforeunload 全清
+  middleware.ts   ← per-request nonce CSP
+```
+
+幾個不直觀但刻意的決定:
+
+- **Web 直接 import 父層 `src/`**(`experimental.externalDir` + `@core/*` alias)。
+  共用 deps(`@anthropic-ai/sdk`、`jszip`)兩邊都裝,因為 webpack 從 `../src/` 解 import
+  時兩邊都得找到。別把這個結構「修乾淨」成標準 monorepo,部署管線是依這個結構打的。
+- **Twitter archive 解析有瀏覽器版跟 Node 版**(`tweetArchiveBrowser.ts` vs `node.ts`),
+  共用邏輯在 `tweetArchive.ts` + `features.ts`。**raw archive 永遠不離開瀏覽器** ——
+  這不是優化,是 docs/03 第一層防護。
+- **Act 2 player 是 renderer-agnostic 的**:terminal renderer 在 `scripts/act-two.ts`,
+  React renderer 在 `web/components/ActTwoSequence.tsx`,共用同一份 `SAMPLE_SCRIPT_DATA`。
+- **Ghost 對話有失敗模式 regeneration loop**:回應落入 `therapist` / `ai_disclaimer` /
+  `dramatic` / `over_long` 會自動 regenerate(最多 2 次,出自 `src/ghost/failureModes.ts`)。
+- **CSP 是 per-request nonce**(`web/middleware.ts`),因為 Next.js 15 的 RSC payload 是
+  inline script。代價是所有頁面變 dynamic、沒 static cache,對這個 app 無感。
+- **`web/app/api/chat/route.ts` 有 grep 級禁忌清單**(`restraint.test.ts` §3):不可 import
+  logger / Sentry / Datadog / 任何 DB / Redis / fs。加觀測能力前先想清楚是不是有別的辦法。
+
+TypeScript 走 ESM + bundler 解析:`.ts` 檔 import 寫成 `'./foo.js'`,
+`web/next.config.mjs` 的 `resolve.extensionAlias` 讓 webpack 也照辦。
+
+部署:Railway via `nixpacks.toml`。整個 repo 都要上 —— `web/` 不能當 root,因為 Next 從 `../src/` import。
 
 ## 我們不做什麼(隱私架構,出自 docs/03)
 
