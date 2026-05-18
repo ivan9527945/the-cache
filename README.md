@@ -59,3 +59,40 @@ Black Mirror 之所以是 Black Mirror,不是因為它戲劇化,是因為它克�
 
 如果 Ghost 的 sweet spot 抓不到,整個專案就不必做。
 所以先驗證最難的部分,再做其他。
+
+## 我們不做什麼(隱私架構,出自 docs/03)
+
+完整論證見 [docs/03-privacy-architecture.md](./docs/03-privacy-architecture.md) 與 hosted 版本的 `/privacy`。
+
+- ❌ 在任何伺服器儲存使用者資料(沒有 DB、Redis、檔案儲存)
+- ❌ Cookie(零個,不只是「必要 cookie」)
+- ❌ GA / Plausible / Vercel Analytics 等流量分析
+- ❌ Request log(access log 跟 application log 都不寫)
+- ❌ 用使用者資料訓練任何模型
+
+可驗證的點:
+
+- `src/extract/tweetArchiveBrowser.ts` — 原始檔在瀏覽器解
+- `web/app/api/chat/route.ts` — 後端只是 LLM 代理,不記 body
+- `web/lib/useAutoCleanup.ts` — idle 5 分鐘 + beforeunload 全清
+- `web/next.config.mjs` — production 嚴格 CSP
+
+ZDR(Zero Data Retention)是流程,不是程式:正式上線前必須拿到 Anthropic
+書面 ZDR addendum,連結放到 `/privacy`。預設個人 API key Anthropic 會
+保留 30 天做安全監控,與隱私承諾衝突。
+
+## 跑起來
+
+```bash
+# Ghost 核心 / CLI 工具(根目錄)
+npm install
+npm run dry-run                                     # 預覽組好的 prompt
+npm run repl                                        # 互動測試
+npm run test:standard -- --out reports/run-1.md     # 12 題標準測試
+npm run extract -- data/tweets.js --out my.json     # archive → features
+npm run act-two -- --fast                           # 幕二 terminal 版
+
+# 前端(web/)
+cd web && npm install && npm run dev                # http://localhost:3000
+# 跑 /api/chat 需要設 ANTHROPIC_API_KEY
+```

@@ -16,7 +16,8 @@
     "act-two": "tsx scripts/act-two.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.40.0"
+    "@anthropic-ai/sdk": "^0.40.0",
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

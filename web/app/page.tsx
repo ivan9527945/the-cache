@@ -8,7 +8,14 @@ export default function Home(): JSX.Element {
       <p className="line dim">一個關於「死後的你」的互動敘事體驗。</p>
       <div className="spacer" />
       <p className="line">
-        <Link href="/act-two">→ 跑一遍幕二</Link>
+        <Link href="/upload">→ 開始(上傳你的 archive)</Link>
+      </p>
+      <p className="line">
+        <Link href="/act-two">→ 跳過上傳,看一遍幕二 sample</Link>
+      </p>
+      <div className="spacer" />
+      <p className="line dim">
+        <Link href="/privacy">隱私架構</Link>
       </p>
     </main>
   );

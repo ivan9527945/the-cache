@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { loadTweetArchive } from '../src/extract/index.js';
+import { loadTweetArchive } from '../src/extract/node.js';
 import {
   playSequence,
   buildScript,

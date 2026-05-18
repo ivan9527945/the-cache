@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import AutoCleanupBoundary from '../components/AutoCleanupBoundary';
 import './globals.scss';
 
 export const metadata: Metadata = {
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }): JSX.Element {
   return (
     <html lang="zh-Hant">
-      <body>{children}</body>
+      <body>
+        <AutoCleanupBoundary />
+        {children}
+      </body>
     </html>
   );
 }

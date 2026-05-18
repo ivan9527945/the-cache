@@ -1,6 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { loadTweetArchive, buildFeaturesFromTweets } from '../src/extract/index.js';
+import { buildFeaturesFromTweets } from '../src/extract/index.js';
+import { loadTweetArchive } from '../src/extract/node.js';
 
 const BOLD = '\x1b[1m';
 const DIM = '\x1b[2m';
