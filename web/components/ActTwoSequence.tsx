@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { playSequence, buildScript, NOT_YET_LINE } from '../../src/actTwo';
 import type { ScriptData, Section, AppearStyle, Renderer } from '../../src/actTwo';
 
@@ -89,9 +90,14 @@ export default function ActTwoSequence({ data }: Props): JSX.Element {
       )}
 
       {choice === 'meet' && (
-        <p className="line dim" style={{ marginTop: '2rem' }}>
-          (此處接 Ghost 對話介面)
-        </p>
+        <>
+          <p className="line dim" style={{ marginTop: '2rem' }}>
+            (Ghost 對話介面尚未實作)
+          </p>
+          <p className="line" style={{ marginTop: '1rem' }}>
+            <Link href="/ending">→ 跳到結尾</Link>
+          </p>
+        </>
       )}
     </>
   );

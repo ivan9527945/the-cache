@@ -97,6 +97,141 @@ button {
   @include fade-in;
 }
 
+// 幕五:遺囑(docs/04)
+// 純文字、極簡、不引導。動畫只有 fade in。
+.ending-shell {
+  max-width: $shell-max-width;
+  margin: 0 auto;
+  padding: 20vh 2rem 8rem;
+  min-height: 100vh;
+}
+
+.ending-actions {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  @include fade-in;
+}
+
+.ending-checks {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 1.5rem 0;
+  @include fade-in;
+
+  li {
+    margin: 0.7rem 0;
+  }
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--fg-quiet);
+    background: transparent;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+
+    &:checked::after {
+      content: '×';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+  }
+}
+
+.ending-textarea {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--fg-quiet);
+  font: inherit;
+  line-height: 1.7;
+  resize: vertical;
+  min-height: 9rem;
+  @include fade-in;
+
+  &::placeholder {
+    color: var(--fg-quiet);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--fg);
+  }
+}
+
+.ending-q3-choices {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  @include fade-in;
+}
+
+.ending-final {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ending-final-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 24rem;
+  padding: 0 1rem;
+}
+
+.ending-final-line {
+  opacity: 0;
+  animation: fade-in 1200ms ease-out forwards;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+}
+
+.ending-x {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  opacity: 0;
+  animation: fade-in 1500ms ease-out forwards;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
 @keyframes fade-in {
   to {
     opacity: 1;
@@ -106,7 +241,13 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .line,
   .choices,
-  .section-header {
+  .section-header,
+  .ending-actions,
+  .ending-checks,
+  .ending-textarea,
+  .ending-q3-choices,
+  .ending-final-line,
+  .ending-x {
     animation-duration: 1ms;
   }
 }

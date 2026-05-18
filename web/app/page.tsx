@@ -13,6 +13,9 @@ export default function Home(): JSX.Element {
       <p className="line">
         <Link href="/act-two">→ 跳過上傳,看一遍幕二 sample</Link>
       </p>
+      <p className="line">
+        <Link href="/ending">→ 跳到幕五:遺囑</Link>
+      </p>
       <div className="spacer" />
       <p className="line dim">
         <Link href="/privacy">隱私架構</Link>
