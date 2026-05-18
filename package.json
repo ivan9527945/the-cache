@@ -12,7 +12,8 @@
     "repl": "tsx scripts/ghost-repl.ts",
     "dry-run": "tsx scripts/dry-run.ts",
     "test:standard": "tsx scripts/standard-test.ts",
-    "extract": "tsx scripts/extract-features.ts"
+    "extract": "tsx scripts/extract-features.ts",
+    "act-two": "tsx scripts/act-two.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0"

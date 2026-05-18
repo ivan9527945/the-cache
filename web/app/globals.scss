@@ -1,0 +1,112 @@
+// 設計鐵則:極少色彩、極簡 motion。詳見 docs/02-act-two-pacing.md。
+
+// CSS custom properties — 留在 :root,跨主題可在 runtime 覆寫
+:root {
+  --bg: #050505;
+  --fg: #cfcfcf;
+  --fg-quiet: #6b6b6b;
+  --fg-strong: #ededed;
+  --accent: #7f7f7f;
+}
+
+// 排版常數(SCSS 編譯期,不需要 runtime 覆寫)
+$font-stack:
+  -apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC',
+  'Helvetica Neue', Arial, sans-serif;
+
+$shell-max-width: 640px;
+$fade-duration: 600ms;
+$choices-fade-duration: 800ms;
+
+@mixin fade-in($duration: $fade-duration) {
+  opacity: 0;
+  animation: fade-in $duration ease-out forwards;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: $font-stack;
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--fg-quiet);
+}
+
+button {
+  font: inherit;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--fg-quiet);
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+
+  &:hover {
+    border-color: var(--fg);
+  }
+}
+
+.shell {
+  max-width: $shell-max-width;
+  margin: 0 auto;
+  padding: 12vh 2rem 6rem;
+  min-height: 100vh;
+}
+
+.line {
+  @include fade-in;
+
+  &.dim {
+    color: var(--fg-quiet);
+  }
+}
+
+.spacer {
+  height: 1.6rem;
+}
+
+.choices {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  @include fade-in($choices-fade-duration);
+}
+
+.section-header {
+  color: var(--fg-quiet);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 2.4rem;
+  margin-bottom: 1rem;
+  @include fade-in;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line,
+  .choices,
+  .section-header {
+    animation-duration: 1ms;
+  }
+}
