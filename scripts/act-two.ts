@@ -6,6 +6,7 @@ import {
   buildScript,
   buildScriptData,
   NOT_YET_LINE,
+  SAMPLE_SCRIPT_DATA,
 } from '../src/actTwo/index.js';
 import type {
   AppearStyle,
@@ -74,56 +75,6 @@ options:
 預設:沒給 --tweets / --data 時,用內建 sample data 跑一遍。`);
 }
 
-const SAMPLE_DATA: ScriptData = {
-  archiveFiles: ['tweets.js', 'direct-messages.js', 'likes.js', 'following.js'],
-  totalPosts: 14237,
-  yearsActive: 8,
-  postsPerDay: 4.9,
-  deletedCount: 1829,
-  peakHourMinute: '23:47',
-  lateNightCount: 2341,
-  longestDayCount: 47,
-  longestDayDate: '2021 年 4 月 16 日',
-  longestDayWhyCount: 12,
-  topWordsWithCounts: [
-    { word: '就', count: 4892 },
-    { word: '真的', count: 3201 },
-    { word: '但是', count: 2847 },
-    { word: '應該', count: 2109 },
-    { word: '我', count: 8234 },
-    { word: '你', count: 1987 },
-  ],
-  pronounSelfCount: 8234,
-  pronounYouCount: 1987,
-  pronounRatio: 4.14,
-  motherCount: 234,
-  fatherCount: 47,
-  topMention: { account: 'A', count: 1892 },
-  lostContact: {
-    account: 'B',
-    sinceYearMonth: '2020 年 6 月',
-    missingTerm: '想念',
-    missingTermSurgePct: 340,
-  },
-  emotionBreakdown: [
-    { label: '快樂類', pct: 18 },
-    { label: '悲傷類', pct: 23 },
-    { label: '憤怒類', pct: 14 },
-    { label: '焦慮類', pct: 27 },
-    { label: '愛意類', pct: 8 },
-    { label: '其他', pct: 10 },
-  ],
-  topEmotionLabel: '焦慮',
-  positiveOrNeutralPct: 91,
-  topics: ['工作焦慮', '社群媒體疲乏', '家人關係'],
-  extractedFear: '被遺忘',
-  inferredLovedOne: 'M',
-  trainingPostCount: 14237,
-  trainingDmCount: 8932,
-  trainingLikeCount: 2341,
-  trainingDurationSeconds: 47,
-};
-
 function makeTerminalRenderer(): Renderer {
   return {
     async enterSection(section: Section) {
@@ -174,7 +125,7 @@ async function loadData(args: Args): Promise<ScriptData> {
     const tweets = await loadTweetArchive(resolve(args.tweets));
     return buildScriptData(tweets);
   }
-  return SAMPLE_DATA;
+  return SAMPLE_SCRIPT_DATA;
 }
 
 async function ask(prompt: string): Promise<string> {

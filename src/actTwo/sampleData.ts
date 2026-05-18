@@ -1,5 +1,7 @@
-import type { ScriptData } from '../../src/actTwo/types';
+import type { ScriptData } from './types.js';
 
+// 唯一的 sample。terminal demo、Next.js 前端、守門員測試都從這裡讀。
+// 數值對齊 docs/02-act-two-pacing.md 範例。
 export const SAMPLE_SCRIPT_DATA: ScriptData = {
   archiveFiles: ['tweets.js', 'direct-messages.js', 'likes.js', 'following.js'],
   totalPosts: 14237,

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ActTwoSequence from '../../components/ActTwoSequence';
 import { useSession } from '../../lib/sessionStore';
-import { SAMPLE_SCRIPT_DATA } from '../../lib/sampleData';
+import { SAMPLE_SCRIPT_DATA } from '../../../src/actTwo';
 import type { ScriptData } from '../../../src/actTwo';
 
 export default function ActTwoClient(): JSX.Element {
