@@ -6,7 +6,12 @@
 nixPkgs = ["nodejs_22", "npm-10_x"]
 
 [phases.install]
-cmds = ["cd web && npm ci"]
+# 根目錄 npm ci 是為了讓 ../src/ 的 jszip / @anthropic-ai/sdk 在 TS 跟 runtime 都能解析。
+# --omit=dev 跳過 vitest / tsx 等 CLI 工具,只裝 src/ 需要的兩個 runtime dep。
+cmds = [
+  "npm ci --omit=dev",
+  "cd web && npm ci"
+]
 
 [phases.build]
 cmds = ["cd web && npm run build"]
