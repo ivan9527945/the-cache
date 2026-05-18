@@ -1,0 +1,15 @@
+
+# Nixpacks phases override。讓 install/build 都在 web/ 子目錄,
+# 跳過根目錄 package.json(那是 ghost CLI / 測試工具,runtime 用不到)。
+
+[phases.setup]
+nixPkgs = ["nodejs_22", "npm-10_x"]
+
+[phases.install]
+cmds = ["cd web && npm ci"]
+
+[phases.build]
+cmds = ["cd web && npm run build"]
+
+[start]
+cmd = "cd web && npm run start -- -p $PORT -H 0.0.0.0"

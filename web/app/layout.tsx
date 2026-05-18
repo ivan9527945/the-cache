@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import AutoCleanupBoundary from '../components/AutoCleanupBoundary';
 import './globals.scss';
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import type { JSX } from 'react';
 import Link from 'next/link';
 import { playSequence, buildScript, NOT_YET_LINE } from '../../src/actTwo';
 import type { ScriptData, Section, AppearStyle, Renderer } from '../../src/actTwo';

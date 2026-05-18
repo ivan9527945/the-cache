@@ -4,6 +4,7 @@
 // doc 04 §6:不打擾使用者,沒有 auto-redirect、彈窗、音效、background animation。
 
 import { useEffect } from 'react';
+import type { JSX } from 'react';
 import { useSession } from '../../lib/sessionStore';
 
 function reallyDeleteEverything(purge: () => void): void {

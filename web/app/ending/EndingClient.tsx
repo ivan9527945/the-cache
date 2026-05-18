@@ -10,6 +10,7 @@
 //   - 不存使用者寫的東西(Q2 textarea uncontrolled,根本不讀)
 
 import { useRef, useState } from 'react';
+import type { JSX } from 'react';
 import EndingFinal from './EndingFinal';
 
 type Step = 'intro' | 'q1' | 'q2' | 'q3' | 'confirm' | 'final';

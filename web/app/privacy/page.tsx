@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { JSX } from 'react';
 
 export const metadata = {
   title: 'Posthumous — 隱私架構',

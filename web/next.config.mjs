@@ -37,6 +37,18 @@ const nextConfig = {
     tsconfigPath: './tsconfig.json',
   },
   poweredByHeader: false,
+  // 根目錄有自己的 package-lock.json(CLI 工具),這裡明確標 web/ 為 workspace root
+  // 避免 Next 在啟動時印「detected multiple lockfiles」警告。
+  outputFileTracingRoot: process.cwd(),
+  // 共用的 src/actTwo / src/extract / src/ghost 用 TS bundler 慣例:
+  // import 寫 './foo.js',實檔是 './foo.ts'。讓 webpack 也照這個方式解析。
+  webpack(config) {
+    config.resolve.extensionAlias = {
+      '.js': ['.js', '.ts', '.tsx'],
+      '.mjs': ['.mjs', '.mts'],
+    };
+    return config;
+  },
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },

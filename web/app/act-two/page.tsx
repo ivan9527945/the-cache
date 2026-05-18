@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import ActTwoClient from './ActTwoClient';
 
 export default function ActTwoPage(): JSX.Element {

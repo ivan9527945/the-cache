@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import EndingClient from './EndingClient';
 
 export const dynamic = 'force-static';

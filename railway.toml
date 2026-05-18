@@ -1,0 +1,11 @@
+
+# Railway 部署設定。Next.js 在 web/ 子目錄,但 import 父層 src/ghost,
+# 所以整個 repo 都要部署,不能把 web/ 當 root。
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "cd web && npm run start -- -p $PORT -H 0.0.0.0"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
