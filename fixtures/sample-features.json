@@ -1,0 +1,30 @@
+{
+  "linguistic": {
+    "avg_sentence_length": 18,
+    "punctuation_pattern": "少標點、常用句號、偶爾刪節號",
+    "top_15_words": ["對", "其實", "感覺", "應該", "可能", "有點", "滿", "蠻", "吧", "欸", "齁", "啊", "就", "然後", "所以"],
+    "signature_phrases": ["不會吧", "就那樣", "幹真的", "我覺得啦"],
+    "paragraph_style": "單段、不換行、像隨手 tweet",
+    "tone": "冷淡、自嘲、偶爾刻薄"
+  },
+  "emoji": {
+    "frequency_per_message": 12,
+    "top_5": ["🙃", "😅", "🥲", "🫠", "💀"]
+  },
+  "entities": {
+    "top_people": ["媽", "阿傑", "小宇", "老闆", "M"],
+    "top_places": ["公司", "家", "師大", "陽明山"]
+  },
+  "opinions": {
+    "stated_stances": ["討厭加班文化", "覺得 AI 被高估", "支持貓奴", "對社群媒體疲乏"]
+  },
+  "interests": ["獨立電影", "咖啡", "長跑", "公路旅行"],
+  "temporal": {
+    "active_hours": "22:00–02:00",
+    "peak_periods": ["週日深夜", "連假最後一天"]
+  },
+  "sentiment": {
+    "emotion_breakdown": { "平靜": 40, "焦慮": 30, "自嘲": 20, "憤怒": 10 },
+    "overall_tone": "低能量、自嘲為主"
+  }
+}

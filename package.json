@@ -1,0 +1,26 @@
+{
+  "name": "posthumous-ghost",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ghost core — prompt builder and Claude API wrapper for the Posthumous project",
+  "type": "module",
+  "main": "src/ghost/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "repl": "tsx scripts/ghost-repl.ts",
+    "dry-run": "tsx scripts/dry-run.ts",
+    "test:standard": "tsx scripts/standard-test.ts",
+    "extract": "tsx scripts/extract-features.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
